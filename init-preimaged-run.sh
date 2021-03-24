@@ -4,7 +4,6 @@
 #   ssh-key on github and cloudlab and have share it with executing node
 
 # TODO: Set the two variabled below
-GITHUB_USERNAME="akatsarakis"
 NO_NODES="5" # WARNING: cannot be higher than number of allocated nodes in cloudlab
 
 if [[ "${NO_NODES}" -gt 9 ]]; then

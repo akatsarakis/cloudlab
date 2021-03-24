@@ -3,8 +3,7 @@
 # WARNING: Before executing this script make sure to have setup
 #   ssh-key on github and cloudlab and have share it with executing node
 
-# TODO: Set the two variabled below
-GITHUB_USERNAME="akatsarakis"
+# TODO: Set this variable below
 NO_NODES="5" # WARNING: cannot be higher than number of allocated nodes in cloudlab
 
 if [[ "${NO_NODES}" -gt 9 ]]; then
@@ -66,6 +65,9 @@ fi
 #############################
 if [[ "${HOSTNAME:5:1}" == 1 ]]; then
     sleep 20 # give some time so that all peers has setup their NICs
+
+    git config --global user.name "Antonios Katsarakis"
+    git config --global user.email "antoniskatsarakis@yahoo.com"
 
     # start a subnet manager
     sudo /etc/init.d/opensmd start # there must be at least one subnet-manager in an infiniband subnet cluster
