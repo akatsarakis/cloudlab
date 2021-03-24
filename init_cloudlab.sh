@@ -5,11 +5,11 @@
     # Node w/ first IP (i.e., "manager") must run script before the rest of the nodes
     # (instantiates a memcached to setup RDMA connections)
 ORDERED_HOST_NAMES=(
-  "apt120.apt.emulab.net"
-  "apt102.apt.emulab.net"
-  "apt115.apt.emulab.net"
-  "apt099.apt.emulab.net"
-  "apt103.apt.emulab.net"
+  "apt152.apt.emulab.net"
+  "apt137.apt.emulab.net"
+  "apt162.apt.emulab.net"
+  "apt161.apt.emulab.net"
+  "apt140.apt.emulab.net"
 )
 
 # Include cloudlab_ssh_config in ssh
@@ -17,11 +17,13 @@ ORDERED_HOST_NAMES=(
 # and already registered its public key on cloudlab
 
 # set once
-CONFIG_NAME="cloudlab_ssh_config"
 CLOUDLAB_USERNAME="akats"
-CLOUDLAB_SSHKEY_FILE="${HOME}/.ssh/id_rsa_cloudlab"
 SSH_CONFIG="/home/akatsarakis/.ssh/config"
+CLOUDLAB_SSHKEY_FILE="${HOME}/.ssh/id_rsa_cloudlab"
+
 SSH_PREFIX="n"
+CONFIG_NAME="cloudlab_ssh_config"
+SCRIPT_TO_COPY_N_RUN="init-preimaged.sh"
 
 # Create file
 echo "# cloudlab config" > ${CONFIG_NAME}
@@ -53,10 +55,16 @@ for i in "${!ORDERED_HOST_NAMES[@]}"; do
   ssh-keyscan -H ${ORDERED_HOST_NAMES[i]} >> ~/.ssh/known_hosts
 done
 
+SSH_REMOTE_SSHKEY="/users/${CLOUDLAB_USERNAME}/.ssh/id_rsa"
+MACHINE_LIST_IDS=$(seq -s " " 1 ${#ORDERED_HOST_NAMES[@]})
+
 # copy id_rsa_cloudlab to internal nodes (to allow access/scp with each other)
 # and init to setup their initial environment
-SSH_REMOTE_SSHKEY="/users/${CLOUDLAB_USERNAME}/.ssh/id_rsa"
-for i in "${!ORDERED_HOST_NAMES[@]}"; do
-  scp ./init.sh ${SSH_PREFIX}$((i+1)):~/init.sh
-  scp ${CLOUDLAB_SSHKEY_FILE} ${SSH_PREFIX}$((i+1)):${SSH_REMOTE_SSHKEY}
-done
+echo "Copying ssh_key and ${SCRIPT_TO_COPY_N_RUN} in cloudlab nodes: ${MACHINE_LIST_IDS}"
+parallel scp ${CLOUDLAB_SSHKEY_FILE} ${SSH_PREFIX}{}:${SSH_REMOTE_SSHKEY} ::: ${MACHINE_LIST_IDS}
+parallel scp ./${SCRIPT_TO_COPY_N_RUN} ${SSH_PREFIX}{}:~/${SCRIPT_TO_COPY_N_RUN} ::: ${MACHINE_LIST_IDS}
+
+# run script
+echo "Running ${SCRIPT_TO_COPY_N_RUN} in cloudlab nodes: ${MACHINE_LIST_IDS}"
+parallel ssh ${SSH_PREFIX}{} './'"${SCRIPT_TO_COPY_N_RUN}"'' ::: ${MACHINE_LIST_IDS}
+echo "Init done!"

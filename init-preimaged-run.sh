@@ -75,4 +75,8 @@ if [[ "${HOSTNAME:5:1}" == 1 ]]; then
     for i in `seq 1 ${NO_NODES}`; do
       ssh-keyscan -H 10.0.3.${i} >> ~/.ssh/known_hosts
     done
+
+    # run default hermes
+    cd ~/hermes/bin/
+    ./copy-n-exec-hermesKV.sh no_pass # By default it runs on 5 nodes
 fi
