@@ -20,6 +20,8 @@ echo "   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/{\1}/'" >> ~
 echo "}" >> ~/.bashrc
 echo "export PS1=\"\[\033[36m\]\u\[\033[0;31m\]\$(parse_git_branch)\[\033[m\]@\[\033[32m\]\h:\[\033[33;2m\]\w\[\033[m\]\$\"" >> ~/.bashrc
 echo " " >> ~/.bashrc
+echo " alias nic-perf='sudo watch -n1 perfquery -x -r' " >> ~/.bashrc
+echo " " >> ~/.bashrc
 source ~/.bashrc
 
 # silence parallel citation without the manual "will-cite" after parallel --citation
