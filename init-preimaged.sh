@@ -20,7 +20,9 @@ echo "   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/{\1}/'" >> ~
 echo "}" >> ~/.bashrc
 echo "export PS1=\"\[\033[36m\]\u\[\033[0;31m\]\$(parse_git_branch)\[\033[m\]@\[\033[32m\]\h:\[\033[33;2m\]\w\[\033[m\]\$\"" >> ~/.bashrc
 echo " " >> ~/.bashrc
-echo " alias nic-perf='sudo watch -n1 perfquery -x -r' " >> ~/.bashrc
+echo "alias nic-perf='sudo watch -n1 perfquery -x -r' " >> ~/.bashrc
+echo " " >> ~/.bashrc
+echo "export PATH=\"/users/akats/.local/bin:${PATH}\"" >> ~/.bashrc
 echo " " >> ~/.bashrc
 source ~/.bashrc
 
@@ -35,7 +37,9 @@ echo 10000000001 | sudo tee /proc/sys/kernel/shmall
 
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #git clone https://github.com/ease-lab/Hermes hermes
-git clone git@github.com:akatsarakis/hermes-async.git hermes
+#git clone git@github.com:akatsarakis/hermes-async.git hermes
+git clone https://github.com/vasigavr1/Odyssey odyssey
+cd odyssey ; git submodule update --init ; cd
 
 sleep 10 # if we try to init nic immediately it typically fails
 
