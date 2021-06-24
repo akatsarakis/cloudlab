@@ -40,6 +40,8 @@ ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #git clone git@github.com:akatsarakis/hermes-async.git hermes
 git clone https://github.com/vasigavr1/Odyssey odyssey
 cd odyssey ; git submodule update --init ; cd
+# TODO ALSO copy and run install-latest-cmake.sh in n1 and then run the following
+#  cd odyssey; cmake -B build
 
 sleep 10 # if we try to init nic immediately it typically fails
 
