@@ -22,7 +22,7 @@ echo "export PS1=\"\[\033[36m\]\u\[\033[0;31m\]\$(parse_git_branch)\[\033[m\]@\[
 echo " " >> ~/.bashrc
 echo "alias nic-perf='sudo watch -n1 perfquery -x -r' " >> ~/.bashrc
 echo " " >> ~/.bashrc
-echo "export PATH=\"/users/akats/.local/bin:${PATH}\"" >> ~/.bashrc
+#echo "export PATH=\"/users/akats/.local/bin:${PATH}\"" >> ~/.bashrc
 echo " " >> ~/.bashrc
 source ~/.bashrc
 
@@ -38,8 +38,8 @@ echo 10000000001 | sudo tee /proc/sys/kernel/shmall
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #git clone https://github.com/ease-lab/Hermes hermes
 #git clone git@github.com:akatsarakis/hermes-async.git hermes
-git clone https://github.com/vasigavr1/Odyssey odyssey
-cd odyssey ; git submodule update --init ; cd
+
+#cd odyssey ; git submodule update --init ; cd
 # TODO ALSO copy and run install-latest-cmake.sh in n1 and then run the following
 #  cd odyssey; cmake -B build
 
@@ -74,15 +74,23 @@ fi
 if [[ "${HOSTNAME:5:1}" == 1 ]]; then
     sleep 20 # give some time so that all peers has setup their NICs
 
-    git config --global user.name "Antonios Katsarakis"
-    git config --global user.email "antoniskatsarakis@yahoo.com"
+    git config --global user.name "Vasilis Gavrielatos "
+    git config --global user.email "vasigavr1@gmail.com"
 
     # start a subnet manager
     sudo /etc/init.d/opensmd start # there must be at least one subnet-manager in an infiniband subnet cluster
+
+    git clone git@github.com:vasigavr1/Odyssey.git odyssey
+    cd ~/odyssey/bin; ./install-latest-cmake.sh
+    cd git-scripts;   ./init_submodules.sh
+    cd ../.. ; cmake -B build
+
 
     # Add all cluster nodes to known hosts
     # WARNING: execute this only after all nodes have setup their NICs (i.e., ifconfig up above)
     for i in `seq 1 ${NO_NODES}`; do
       ssh-keyscan -H 10.0.3.${i} >> ~/.ssh/known_hosts
     done
+else
+  mkdir -p odyssey/build
 fi

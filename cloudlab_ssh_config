@@ -1,0 +1,27 @@
+# cloudlab config
+ 
+Host n1
+    User vasigavr
+    IdentityFile /home/vasilis/.ssh/id_rsa_cloudlab
+    HostName apt152.apt.emulab.net
+ 
+Host n2
+    User vasigavr
+    IdentityFile /home/vasilis/.ssh/id_rsa_cloudlab
+    HostName apt146.apt.emulab.net
+ 
+Host n3
+    User vasigavr
+    IdentityFile /home/vasilis/.ssh/id_rsa_cloudlab
+    HostName apt156.apt.emulab.net
+ 
+Host n4
+    User vasigavr
+    IdentityFile /home/vasilis/.ssh/id_rsa_cloudlab
+    HostName apt138.apt.emulab.net
+ 
+Host n5
+    User vasigavr
+    IdentityFile /home/vasilis/.ssh/id_rsa_cloudlab
+    HostName apt140.apt.emulab.net
+ 

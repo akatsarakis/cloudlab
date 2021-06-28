@@ -6,9 +6,9 @@
     # (instantiates a memcached to setup RDMA connections)
 ORDERED_HOST_NAMES=(
   "apt152.apt.emulab.net"
-  "apt137.apt.emulab.net"
-  "apt162.apt.emulab.net"
-  "apt161.apt.emulab.net"
+  "apt146.apt.emulab.net"
+  "apt156.apt.emulab.net"
+  "apt138.apt.emulab.net"
   "apt140.apt.emulab.net"
 )
 
@@ -17,8 +17,8 @@ ORDERED_HOST_NAMES=(
 # and already registered its public key on cloudlab
 
 # set once
-CLOUDLAB_USERNAME="akats"
-SSH_CONFIG="/home/akatsarakis/.ssh/config"
+CLOUDLAB_USERNAME="vasigavr"
+SSH_CONFIG="/home/vasilis/.ssh/config"
 CLOUDLAB_SSHKEY_FILE="${HOME}/.ssh/id_rsa_cloudlab"
 
 SSH_PREFIX="n"
@@ -68,3 +68,5 @@ parallel scp ./${SCRIPT_TO_COPY_N_RUN} ${SSH_PREFIX}{}:~/${SCRIPT_TO_COPY_N_RUN}
 echo "Running ${SCRIPT_TO_COPY_N_RUN} in cloudlab nodes: ${MACHINE_LIST_IDS}"
 parallel ssh ${SSH_PREFIX}{} './'"${SCRIPT_TO_COPY_N_RUN}"'' ::: ${MACHINE_LIST_IDS}
 echo "Init done!"
+
+
