@@ -11,19 +11,9 @@ if [[ "${NO_NODES}" -gt 9 ]]; then
   exit 1;
 fi
 
-# [Optionally] set terminal bar --> must source ~/.bashrc to apply it
-echo " " >> ~/.bashrc
-echo "#My Options" >> ~/.bashrc
-echo "#Terminal Bar" >> ~/.bashrc
-echo "parse_git_branch() {" >> ~/.bashrc
-echo "   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/{\1}/'" >> ~/.bashrc
-echo "}" >> ~/.bashrc
-echo "export PS1=\"\[\033[36m\]\u\[\033[0;31m\]\$(parse_git_branch)\[\033[m\]@\[\033[32m\]\h:\[\033[33;2m\]\w\[\033[m\]\$\"" >> ~/.bashrc
-echo " " >> ~/.bashrc
-echo "alias nic-perf='sudo watch -n1 perfquery -x -r' " >> ~/.bashrc
-echo " " >> ~/.bashrc
-#echo "export PATH=\"/users/akats/.local/bin:${PATH}\"" >> ~/.bashrc
-echo " " >> ~/.bashrc
+git clone git@github.com:vasigavr1/dotfiles.git dotfiles
+rm  ~/.bashrc
+cd ~/dotfiles ; ./install ; cd ..
 source ~/.bashrc
 
 # silence parallel citation without the manual "will-cite" after parallel --citation
@@ -72,13 +62,11 @@ fi
 # WARNING only on first node!
 #############################
 if [[ "${HOSTNAME:5:1}" == 1 ]]; then
-    sleep 20 # give some time so that all peers has setup their NICs
-
-    git config --global user.name "Vasilis Gavrielatos "
-    git config --global user.email "vasigavr1@gmail.com"
+    sleep 20 # give some time so that all peers have setup their NICs
 
     # start a subnet manager
     sudo /etc/init.d/opensmd start # there must be at least one subnet-manager in an infiniband subnet cluster
+
 
     git clone git@github.com:vasigavr1/Odyssey.git odyssey
     cd ~/odyssey/bin; ./install-latest-cmake.sh
