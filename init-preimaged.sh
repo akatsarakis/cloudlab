@@ -11,10 +11,7 @@ if [[ "${NO_NODES}" -gt 9 ]]; then
   exit 1;
 fi
 
-git clone git@github.com:vasigavr1/dotfiles.git dotfiles
-rm  ~/.bashrc
-cd ~/dotfiles ; ./install ; cd ..
-source ~/.bashrc
+
 
 # silence parallel citation without the manual "will-cite" after parallel --citation
 mkdir ~/.parallel
@@ -26,12 +23,11 @@ echo 10000000001 | sudo tee /proc/sys/kernel/shmmax
 echo 10000000001 | sudo tee /proc/sys/kernel/shmall
 
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-#git clone https://github.com/ease-lab/Hermes hermes
-#git clone git@github.com:akatsarakis/hermes-async.git hermes
+git clone git@github.com:vasigavr1/dotfiles.git dotfiles
+rm  ~/.bashrc
+cd ~/dotfiles ; ./install ; cd ..
+source ~/.bashrc
 
-#cd odyssey ; git submodule update --init ; cd
-# TODO ALSO copy and run install-latest-cmake.sh in n1 and then run the following
-#  cd odyssey; cmake -B build
 
 sleep 10 # if we try to init nic immediately it typically fails
 
