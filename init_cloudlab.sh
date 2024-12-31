@@ -23,7 +23,7 @@ CLOUDLAB_SSHKEY_FILE="${HOME}/.ssh/id_rsa_cloudlab"
 
 SSH_PREFIX="n"
 CONFIG_NAME="cloudlab_ssh_config"
-SCRIPT_TO_COPY_N_RUN="init-preimaged.sh"
+SCRIPT_TO_COPY_N_RUN="init-preimaged-run.sh"
 
 # Create file
 echo "# cloudlab config" > ${CONFIG_NAME}

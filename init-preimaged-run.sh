@@ -32,8 +32,8 @@ echo 10000000001 | sudo tee /proc/sys/kernel/shmmax
 echo 10000000001 | sudo tee /proc/sys/kernel/shmall
 
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-#git clone https://github.com/ease-lab/Hermes hermes
-git clone git@github.com:akatsarakis/hermes-async.git hermes
+git clone https://github.com/ease-lab/Hermes hermes
+#git clone git@github.com:akatsarakis/hermes-async.git hermes
 
 sleep 10 # if we try to init nic immediately it typically fails
 
